@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block body %}
+	<label>Vote for Party</label>
+	<ul>
+		{% for party in party_list %}
+			<li>
+				<a href="{% url 'votingapp:vote_party_page' party.id %}">
+					{{ party.name }}
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

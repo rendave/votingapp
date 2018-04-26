@@ -1,0 +1,16 @@
+<form>
+	{% csrf_token %}
+	<legend style="font-size: 30; color: #fc0c00 ">Welcome {{ user.first_name }} {{ user.last_name }}</legend>
+	<br>
+	<ul>
+		<li><a href="{% url 'votingapp:position_page' %}"> Vote for position</a></li>
+		<li><a href="{% url 'votingapp:party_page' %}"> Vote for party</a></li>
+	</ul>
+	<ul>
+	{% for position in position_list %}
+		<li>
+			 {{ position.position_name }} : {{ position.get_winner }}
+		</li>
+	{% endfor %}
+	</ul>
+</form>

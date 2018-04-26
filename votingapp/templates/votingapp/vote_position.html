@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load index %}
+{% block body %}
+	<h1>Position: {{ position.position_name }}</h1>
+	<ol>
+	{% for candidate in candidate_list %}
+		<li>
+			{% if status == True %}
+				<form action="{% url 'votingapp:unvote_position_post' position.id candidate.id %}" method="post">
+			{% else %}
+				<form action="{% url 'votingapp:vote_position_post' position.id candidate.id %}" method="post">
+			{% endif %}
+
+		{% comment %}	<form
+				{% if status == "False" %}
+					action="{% url 'votingapp:vote_position_post' position.id candidate.id %}"
+				{% else %}
+					action="{% url 'votingapp:unvote_position_post' position.id candidate.id %}"
+				{% endif %} method="post">
+		{% endcomment %}
+				{% csrf_token %}
+				<div>
+					{% if user == candidate.owner %}
+						<span style="color: grey">(YOU)</span>
+					{% elif status == False %}
+						{% if not candidate|is_voted_position:user %}
+							<button type="submit">Vote</button>
+						{% endif %}
+					{% else %}
+						{% if candidate|is_voted_position:user %}
+							<button type="submit">Unvote</button>
+						{% endif %}
+					{% endif %}
+					{% comment %}
+						<button type="submit" {{ status|yesno:"disabled," }}>Vote </button>
+					{% endcomment %}
+					<label>{{ candidate.owner.first_name }} {{ candidate.owner.last_name }} -- {{ candidate.votes.count }} votes</label>
+				</div>
+			</form>
+		</li>
+	{% endfor %}
+	</ol>
+{% endblock %}

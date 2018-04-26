@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block body %}
+{% load index %}
+<form action="{% url 'votingapp:vote_party_post' party.id %}" method='post'>
+	{% csrf_token %}
+	<h1>
+		<button>Vote Party List</button>
+		{{ party.name }}
+	</h1>
+</form>
+<ol>
+{% for candidate in candidate_list %}
+	<li>
+		{{ candidate }} - {{ candidate.vote_count }} votes
+		{% if candidate|is_voted_candidate:curr_user %}
+			<span style="color: red">already voted as candidate</span>
+		{% elif candidate.position|is_voted_position:curr_user %}
+			<span style="color: red">already voted for position</span>
+		{% endif %}
+	</li>
+{% endfor %}
+</ol>
+{% endblock %}
