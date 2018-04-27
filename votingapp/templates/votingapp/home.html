@@ -1,3 +1,5 @@
+{% extends 'base.html' %}
+{% block body %}
 <form>
 	{% csrf_token %}
 	<legend style="font-size: 30; color: #fc0c00 ">Welcome {{ user.first_name }} {{ user.last_name }}</legend>
@@ -9,8 +11,9 @@
 	<ul>
 	{% for position in position_list %}
 		<li>
-			 {{ position.position_name }} : {{ position.get_winner }}
+			 {{ position.position_name }} : {{ position.get_winner.display }} -- {{ position.get_winner.votes.count }} votes
 		</li>
 	{% endfor %}
 	</ul>
 </form>
+{% endblock %}

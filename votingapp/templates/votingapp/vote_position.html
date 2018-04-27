@@ -10,14 +10,6 @@
 			{% else %}
 				<form action="{% url 'votingapp:vote_position_post' position.id candidate.id %}" method="post">
 			{% endif %}
-
-		{% comment %}	<form
-				{% if status == "False" %}
-					action="{% url 'votingapp:vote_position_post' position.id candidate.id %}"
-				{% else %}
-					action="{% url 'votingapp:unvote_position_post' position.id candidate.id %}"
-				{% endif %} method="post">
-		{% endcomment %}
 				{% csrf_token %}
 				<div>
 					{% if user == candidate.owner %}
@@ -34,7 +26,9 @@
 					{% comment %}
 						<button type="submit" {{ status|yesno:"disabled," }}>Vote </button>
 					{% endcomment %}
-					<label>{{ candidate.owner.first_name }} {{ candidate.owner.last_name }} -- {{ candidate.votes.count }} votes</label>
+					<label>
+						{{ candidate.display }} -- {{ candidate.votes.count }} votes
+					</label>
 				</div>
 			</form>
 		</li>

@@ -29,7 +29,7 @@ class Party(models.Model):
 class Candidate(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     party = models.ForeignKey(
-        Party, on_delete=models.CASCADE, blank=True, null=True)
+        Party, on_delete=models.CASCADE, blank=True, null=True, related_name="candidates")
     position = models.ForeignKey(
         Position, on_delete=models.CASCADE, default="")
 
@@ -37,6 +37,9 @@ class Candidate(models.Model):
         return "{} for {}".format(
             self.owner.get_full_name(),
             self.position.position_name)
+
+    def display(self):
+        return self.owner.get_full_name()
 
     def is_voted(self, voter):
         # return voter.votes.filter(owner=voter).exists()

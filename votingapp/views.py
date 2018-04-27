@@ -72,7 +72,7 @@ def vote_party_page(request, party_id):
 
 def vote_party_post(request, party_id):
     party = get_object_or_404(Party, pk=party_id)
-    for candidate in party.candidate_set.all():
+    for candidate in party.candidates.all():
         candidate.add_vote(request.user)
     return vote_party_page(request, party.id)
 

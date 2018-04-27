@@ -1,6 +1,8 @@
+<title>Voting Application</title>
 <body>
 	<nav>
 		<button onclick="goBack()" >Back</button>
+		<a href="{% url 'votingapp:logout' %}">Logout</a>
 	</nav>
 
 	<script>function goBack(){

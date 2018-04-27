@@ -8,6 +8,7 @@ app_name = 'votingapp'
 urlpatterns = [
 	path('home/', views.home, name='home'),
 	path('login/', login, {'template_name': 'votingapp/login.html'}),
+	path('login/', logout, {'template_name': 'votingapp/login.html'}, name='logout'),
 	#position
 	path('home/position_page/', views.position_page, name='position_page'),
 	path('home/position_page/<int:position_id>',
